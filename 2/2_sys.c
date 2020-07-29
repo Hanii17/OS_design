@@ -8,13 +8,13 @@
    set_fs(get_ds());
  
    //open                                                                   
-   fd_from = sys_open(s_file,O_RDONLY,S_IRUSR);
+   fd_from = ksys_open(s_file,O_RDONLY,S_IRUSR);
    if(fd_from==-1)
    {
        printk("open source file error!");
        return -1;
    }
-   fd_to = sys_open(t_file,O_WRONLY|O_CREAT,S_IRUSR|S_IWUSR);
+   fd_to = ksys_open(t_file,O_WRONLY|O_CREAT,S_IRUSR|S_IWUSR);
    if(fd_to==-1)
    {
        printk("open target file errpr!");
@@ -23,7 +23,7 @@
 
    while(1)
    {
-       readnum=sys_read(fd_from,buf,sizeof(buf));
+       readnum=ksys_read(fd_from,buf,sizeof(buf));
        if(readnum==-1)
        {
            printk("read error!");
@@ -46,8 +46,8 @@
        }
    }
  
-   sys_close(fd_from);
-   sys_close(fd_to);
+   ksys_close(fd_from);
+   ksys_close(fd_to);
    set_fs(old_fs);
    return 0; }
 
